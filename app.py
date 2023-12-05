@@ -84,6 +84,9 @@ def predict():
     try:
         data = request.json["data"]
         result = preprocess_queries(data)
+        query_embeddings = tokenizer(result)
+        print(query_embeddings)
+
         return jsonify(result)
 
     except Exception as e:
