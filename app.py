@@ -83,9 +83,12 @@ def cluster_transform(text, query_embeddings):
 def predict():
     try:
         data = request.json["data"]
-        result = preprocess_queries(data)
-        query_embeddings = tokenizer(result)
-        print(query_embeddings)
+        queries = preprocess_queries(data)
+        result = []
+        for query in queries:
+            query_embeddings = tokenizer(query)
+            representative_data = cluster_transform(query_embeddings)
+            result.append(representative_data)
 
         return jsonify(result)
 
